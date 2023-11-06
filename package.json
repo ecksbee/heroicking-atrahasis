@@ -1,0 +1,25 @@
+{
+  "name": "heroicking-atrahasis",
+  "description": "Do not revere your gods, Do not pray to your goddesses",
+  "version": "0.0.0",
+  "license": "see LICENSE file",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.9.9",
+    "vite-plugin-solid": "^2.2.6"
+  },
+  "dependencies": {
+    "@fluentui/web-components": "2.1",
+    "babel-preset-solid": "^1.4.2",
+    "canvas-datagrid": "^0.3.19",
+    "d3": "^7.1.1",
+    "isomorphic-fetch": "^3.0.0",
+    "solid-js": "^1.4.2"
+  },
+  "packageManager": "yarn@3.3.1"
+}
