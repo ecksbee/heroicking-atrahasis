@@ -5,19 +5,21 @@ import fetchRenderabale from './fetchRenderabale'
 const initialState = {
     catalog: null,
     hash: null,
-    ixbrlDocument: null,
     renderable: null,
-    expressable: null,
     loading: true,
     error: false,
     visibleArcDiagram: false,
-    narrativeFact: null,
-    lang: 'Unlabelled',
+    lang: 'Truncated',
     labelRole: 'Default',
-    footnotes: null,
 }
 
 const [state, setState] = createStore(initialState)
+const setLang = (newVal) => {
+    setState('lang', () => newVal)
+}
+const setLabelRole = (newVal) => {
+    setState('labelRole', () => newVal)
+}
 const setCatalog = (newCatalog) => {
     setState('catalog', () => newCatalog)
 }
@@ -36,88 +38,6 @@ const setRenderable = (newRenderable) => {
 const setVisibleArcDiagram = (newVal) => {
     setState('visibleArcDiagram', () => !!newVal)
 }
-const showNarrativeFact = (r, c, q, i) => {
-    console.log("hello")
-    console.dir({
-        rowIndex: r,
-        columnIndex: c,
-        linkbase: q,
-        index: i,
-    })
-    setState('narrativeFact', () => ({
-        rowIndex: r,
-        columnIndex: c,
-        linkbase: q,
-        index: i,
-    }))
-}
-const hideNarrativeFact = () => {
-    setState('narrativeFact', () => null)
-}
-const narrativeFactInnerHtml = () => {
-    if (state.narrativeFact) {
-        if (state.renderable) {
-            const { rowIndex, columnIndex, linkbase } = state.narrativeFact
-            const fact = state.renderable[linkbase].FactualQuadrant[rowIndex][columnIndex]
-            return fact?.[state.lang].InnerHtml
-        }
-        if (state.expressable) {
-            return state.expressable.Expression?.[state.lang].InnerHtml
-        }
-    }
-    return null
-}
-const narrativeFactLabel = () => {
-    if (state.narrativeFact) {
-        if (state.renderable) {
-            const { rowIndex, linkbase, index } = state.narrativeFact
-            let label = ''
-            const dataGrid = state.renderable[linkbase]
-            switch (linkbase) {
-                case 'PGrid':
-                    label = dataGrid.IndentedLabels[rowIndex].Label[state.labelRole][state.lang]
-                    break
-                case 'DGrid':
-                    label = dataGrid.RootDomains[index].PrimaryItems[rowIndex].Label[state.labelRole][state.lang]
-                    break
-                case 'CGrid':
-                    label = dataGrid.SummationItems[index].ContributingConcepts[rowIndex].Label[state.labelRole][state.lang]
-                    break
-            }
-            return label
-        }
-        if (state.expressable) {
-            return state.expressable.Labels[state.labelRole][state.lang]
-        }
-    }
-    return null
-}
-const narrativeFactPeriodHeader = () => {
-    if (state.narrativeFact) {
-        if (state.renderable) {
-            const { columnIndex, linkbase, index } = state.narrativeFact
-            let periodHeader = ''
-            const dataGrid = state.renderable[linkbase]
-            switch (linkbase) {
-                case 'PGrid':
-                    periodHeader = dataGrid.PeriodHeaders[columnIndex][state.lang]
-                    break
-                case 'DGrid':
-                    periodHeader = dataGrid.RootDomains[index].PeriodHeaders[columnIndex][state.lang]
-                    break
-                case 'CGrid':
-                    periodHeader = dataGrid.SummationItems[index].PeriodHeaders[columnIndex][state.lang]
-                    break
-            }
-            return periodHeader
-        }
-        if (state.expressable) {
-            return state.expressable.Context.Period[state.lang]
-        }
-    }
-    return null
-}
-
 const loadCatalog = async () => {
     setLoading(true)
     setError(false)
@@ -175,14 +95,9 @@ export default {
     setRenderable,
     getVisibleArcDiagram: () => state.visibleArcDiagram,
     setVisibleArcDiagram,
-    getNarrativeFact: () => state.narrativeFact,
-    showNarrativeFact,
-    hideNarrativeFact,
-    narrativeFactInnerHtml,
-    narrativeFactLabel,
-    narrativeFactPeriodHeader,
     getLang: () => state.lang,
-    // setLang
+    setLang,
     getLabelRole: () => state.labelRole,
-    // setLabelRole
+    setLabelRole,
+    getFootnotes: () => state.footnotes,
 }
