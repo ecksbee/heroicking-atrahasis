@@ -9,7 +9,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/taxonomies': 'http://localhost:8080',
+      '/packages': 'http://localhost:8080',
     }
   },
   base: '',

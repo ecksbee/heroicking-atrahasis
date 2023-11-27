@@ -1487,21 +1487,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"goldlord-midas@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "goldlord-midas@workspace:."
-  dependencies:
-    "@fluentui/web-components": 2.1
-    babel-preset-solid: ^1.4.2
-    canvas-datagrid: ^0.3.19
-    d3: ^7.1.1
-    isomorphic-fetch: ^3.0.0
-    solid-js: ^1.4.2
-    vite: ^2.9.9
-    vite-plugin-solid: ^2.2.6
-  languageName: unknown
-  linkType: soft
-
 "graceful-fs@npm:^4.2.6":
   version: 4.2.10
   resolution: "graceful-fs@npm:4.2.10"
@@ -1531,6 +1516,21 @@ __metadata:
   checksum: b9ad53d53be4af90ce5d1c38331e712522417d017d5ef1ebd0507e07c2fbad8686fffb8e12ddecd4c39ca9b9b47431afbb975b8abf7f3c3b82c98e9aad052792
   languageName: node
   linkType: hard
+
+"heroicking-atrahasis@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "heroicking-atrahasis@workspace:."
+  dependencies:
+    "@fluentui/web-components": 2.1
+    babel-preset-solid: ^1.4.2
+    canvas-datagrid: ^0.3.19
+    d3: ^7.1.1
+    isomorphic-fetch: ^3.0.0
+    solid-js: ^1.4.2
+    vite: ^2.9.9
+    vite-plugin-solid: ^2.2.6
+  languageName: unknown
+  linkType: soft
 
 "html-entities@npm:2.3.2":
   version: 2.3.2
