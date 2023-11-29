@@ -14,6 +14,7 @@ import 'isomorphic-fetch'
 import store from './lib/store'
 import CatalogPage from './components/CatalogPage'
 import BrowserPage from './components/BrowserPage'
+import InspectorPage from './components/InspectorPage'
 import logo from './logo.svg'
 import styles from './App.module.css'
 provideFluentDesignSystem().register(
@@ -29,7 +30,7 @@ provideFluentDesignSystem().register(
 const App = () => {
   onMount(async () => {
       try {
-        await store.loadCatalog()
+        await store.loadData()
       } catch (e) {
         console.error(e)
       }
@@ -40,10 +41,10 @@ const App = () => {
     {
       !store.getLoading() && !store.getError() && <>
       {
-          store.getCatalog() && !store.getHash() && <CatalogPage />
+          store.getConceptCard() && !store.getRenderable() && <BrowserPage />
       }
       {
-          store.getHash() && store.getRenderable() && <BrowserPage />
+          store.getRenderable() && <InspectorPage />
       }
       </>
     }

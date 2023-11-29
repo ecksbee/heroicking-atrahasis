@@ -1,11 +1,10 @@
 import { createStore } from 'solid-js/store'
-import fetchCatalog from './fetchCatalog'
+import fetchConceptCard from './fetchConceptCard'
 import fetchRenderabale from './fetchRenderabale'
  
 const initialState = {
-    catalog: null,
-    hash: null,
     renderable: null,
+    conceptCard: null,
     loading: true,
     error: false,
     visibleArcDiagram: false,
@@ -20,79 +19,76 @@ const setLang = (newVal) => {
 const setLabelRole = (newVal) => {
     setState('labelRole', () => newVal)
 }
-const setCatalog = (newCatalog) => {
-    setState('catalog', () => newCatalog)
-}
 const setLoading = (newVal) => {
     setState('loading', () => newVal)
 }
 const setError = (newVal) => {
     setState('error', () => newVal)
 }
-const setHash = (newVal) => {
-    setState('hash', () => newVal)
-}
 const setRenderable = (newRenderable) => {
     setState('renderable', () => newRenderable)
+}
+const setConceptCard = (newConceptCard) => {
+    setState('conceptCard', () => newConceptCard)
 }
 const setVisibleArcDiagram = (newVal) => {
     setState('visibleArcDiagram', () => !!newVal)
 }
-const loadCatalog = async () => {
+const loadData = async () => {
     setLoading(true)
     setError(false)
-    setHash(null)
-    setCatalog(null)
     setRenderable(null)
-    let fetched
-    try {
-      fetched = await fetchCatalog()
-      setLoading(false)
-      setError(false)
-      setCatalog(fetched)
-    } catch (e) {
-      console.error(e)
-      setLoading(false)
-      setError(true)
-      setCatalog(null)
-      setRenderable(null)
-      return
-    }
+    setConceptCard(null)
+    loadConceptCard()
+    loadRenderable()
 }
-const loadRenderable = async (hash) => {
-    setLoading(true)
-    setError(false)
-    setHash(hash)
-    setRenderable(null)
+const loadRenderable = async () => {
     let fetched
     try {
-      fetched = await fetchRenderabale(hash)
-      setLoading(false)
-      setError(false)
-      setRenderable(fetched)
+        fetched = await fetchRenderabale()
+        if (!!fetched) { 
+            setLoading(false)
+            setError(false)
+            setRenderable(fetched)
+        }
     } catch (e) {
       console.error(e)
-      setLoading(false)
-      setError(true)
-      setCatalog(null)
-      setRenderable(null)
       return
     }
+    setLoading(false)
+    setError(true)
+    setRenderable(null)
+}
+const loadConceptCard = async (href) => {
+    let fetched
+    try {
+        fetched = await fetchConceptCard()
+        if (!!fetched) { 
+            setLoading(false)
+            setError(false)
+            setConceptCard(fetched)
+        }
+    } catch (e) {
+      console.error(e)
+      return
+    }
+    setLoading(false)
+    setError(true)
+    setConceptCard(null)
 }
 
 export default {
-    loadCatalog,
-    getCatalog: () => state.catalog,
-    setCatalog,
+    loadData,
     getLoading: () => state.loading,
     setLoading,
     getError: () => state.error,
     setError,
-    getHash: () => state.hash,
-    setHash,
     loadRenderable,
     getRenderable: () => state.renderable,
     setRenderable,
+    loadConceptCard,
+    getConceptCard: () => state.conceptCard,
+    setConceptCard,
     getVisibleArcDiagram: () => state.visibleArcDiagram,
     setVisibleArcDiagram,
     getLang: () => state.lang,
