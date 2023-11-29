@@ -53,11 +53,10 @@ const loadRenderable = async () => {
         }
     } catch (e) {
       console.error(e)
-      return
+      setError(true)
+      setRenderable(null)
     }
     setLoading(false)
-    setError(true)
-    setRenderable(null)
 }
 const loadConceptCard = async (href) => {
     let fetched
@@ -70,11 +69,10 @@ const loadConceptCard = async (href) => {
         }
     } catch (e) {
       console.error(e)
-      return
+      setError(true)
+      setConceptCard(null)
     }
     setLoading(false)
-    setError(true)
-    setConceptCard(null)
 }
 
 export default {
