@@ -1,8 +1,10 @@
 import { createStore } from 'solid-js/store'
+import fetchCatalog from './fetchCatalog'
 import fetchConceptCard from './fetchConceptCard'
 import fetchRenderabale from './fetchRenderabale'
  
 const initialState = {
+    catalog: null,
     renderable: null,
     conceptCard: null,
     loading: true,
@@ -18,6 +20,9 @@ const setLang = (newVal) => {
 }
 const setLabelRole = (newVal) => {
     setState('labelRole', () => newVal)
+}
+const setCatalog = (newCatalog) => {
+    setState('catalog', () => newCatalog)
 }
 const setLoading = (newVal) => {
     setState('loading', () => newVal)
@@ -39,8 +44,22 @@ const loadData = async () => {
     setError(false)
     setRenderable(null)
     setConceptCard(null)
-    loadConceptCard()
-    loadRenderable()
+    // loadConceptCard()
+    // loadRenderable()
+    let fetched
+    try {
+      fetched = await fetchCatalog()
+      setLoading(false)
+      setError(false)
+      setCatalog(fetched)
+    } catch (e) {
+      console.error(e)
+      setLoading(false)
+      setError(true)
+      setCatalog(null)
+      setRenderable(null)
+      return
+    }
 }
 const loadRenderable = async () => {
     let fetched
@@ -77,6 +96,8 @@ const loadConceptCard = async (href) => {
 
 export default {
     loadData,
+    getCatalog: () => state.catalog,
+    setCatalog,
     getLoading: () => state.loading,
     setLoading,
     getError: () => state.error,

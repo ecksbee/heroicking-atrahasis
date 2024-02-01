@@ -9,7 +9,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/packages': 'http://localhost:8080',
+      '/networks': 'http://localhost:8080',
       '/concepts': 'http://localhost:8080',
     }
   },

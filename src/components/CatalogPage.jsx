@@ -1,10 +1,11 @@
 import { For, createSignal } from 'solid-js'
 
 import store from '../lib/store'
+import logo from '../logo.svg'
 import styles from './CatalogPage.module.css'
 import commonStyles from './Common.module.css'
 
-const title = 'Taxonomy Pacakge Browser'
+const title = 'Taxonomy Library'
 const CatalogPage = () => {
     const catalog = store.getCatalog()
     const subjects = catalog.Subjects
@@ -14,7 +15,9 @@ const CatalogPage = () => {
     const [subject, setSubject] = createSignal(initSubject)
     const [relationshipSet, setRelationshipSet] = createSignal(initRoleURI)
     setSubject(initSubject)
-    return (<div id={styles['selector-container']}>
+    return (<>
+        <img style={{height: 'auto', width: '25vw', position: 'fixed', bottom: '1%', right: '1%'}} src={logo} />
+    <div id={styles['selector-container']}>
         <div id={styles['selector-panel']}>
             <h1 id={styles.title}>{title}</h1>
             <h2>Relationship Set</h2>
@@ -47,6 +50,7 @@ const CatalogPage = () => {
             </div>
             </div>
         </div>
+    </>
     )
 }
 

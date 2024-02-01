@@ -5,7 +5,7 @@ export default async () => {
     if (!uuid) {
         return null
     }
-    const response = await fetch('packages/' + uuid)
+    const response = await fetch('networks/' + uuid)
     if (response.status >= 400) {
         throw new Error('Bad response from server')
     }

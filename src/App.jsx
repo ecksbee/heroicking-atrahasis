@@ -12,6 +12,7 @@ import {
 import 'isomorphic-fetch'
 
 import store from './lib/store'
+import CatalogPage from './components/CatalogPage'
 import BrowserPage from './components/BrowserPage'
 import InspectorPage from './components/InspectorPage'
 import logo from './logo.svg'
@@ -40,10 +41,13 @@ const App = () => {
     {
       !store.getLoading() && !store.getError() && <>
       {
+          !store.getConceptCard() && !store.getRenderable() && store.getCatalog() && <CatalogPage />
+      }
+      {
           !store.getConceptCard() && store.getRenderable() && <BrowserPage />
       }
       {
-          store.getConceptCard() && <InspectorPage />
+          store.getConceptCard() && !store.getRenderable() && <InspectorPage />
       }
       </>
     }
