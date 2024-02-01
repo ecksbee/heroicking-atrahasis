@@ -19,7 +19,16 @@ const BrowserPage = () => {
     }}>
             <div id={styles['main-panel-title']}>
                 <h1 class={styles.truncate + ' ' + styles['main-panel-title-h1']}>{mainPanelTitle}
-                </h1>
+                &nbsp;&nbsp;
+                <a href='#' onClick={e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    store.setRenderable(null)
+                    const u = new URL(window.location.href)
+                    u.search = ''
+                    console.log(u.toString())
+                    history.pushState(null, '', u.toString())
+                }}>[X]</a></h1>
             </div>
             <div id={styles['main-panel-body']}>
                 <fluent-tabs activeid={currentTab()}>

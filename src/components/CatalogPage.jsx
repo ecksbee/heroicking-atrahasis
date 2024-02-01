@@ -43,9 +43,9 @@ const CatalogPage = () => {
                         try {
                             if ('URLSearchParams' in window) {
                                 var searchParams = new URLSearchParams(window.location.search)
-                                searchParams.set('id', hash);
-                                var newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
-                                history.pushState(null, '', newRelativePathQuery);
+                                searchParams.set('id', hash)
+                                var newRelativePathQuery = window.location.pathname + '?' + searchParams.toString()
+                                history.pushState(null, '', newRelativePathQuery)
                             }
                             await store.loadRenderable(hash)
                         } catch (e) {
