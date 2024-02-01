@@ -36,7 +36,7 @@ const App = () => {
       }
   })
   return <>
-    {store.getLoading() && !store.getError() && <div id={styles['splash-screen']}><img style={{height: '100%', width: '100%'}} src={logo} /></div>}
+    {store.getLoading() && !store.getError() && <Spinner />}
     {store.getError() && <div>error!</div>}
     {
       !store.getLoading() && !store.getError() && <>
@@ -51,7 +51,13 @@ const App = () => {
       }
       </>
     }
-  </>
+  // </>
 }
+
+const Spinner = () => <>
+  <div id={styles['spinner2']}><div></div></div>
+  <div id={styles['spinner']}><div></div></div>
+</>
+
 
 export default App

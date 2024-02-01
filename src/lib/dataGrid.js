@@ -23,27 +23,13 @@ export default (data, numFrozenRows, numFrozenCols, mount, onContextMenu, footno
         grid.frozenColumn = numFrozenCols || 1
         grid.frozenRow = (Math.floor(grid.visibleRowHeights.length/2) < numFrozenRows) ? 1 : numFrozenRows
         grid.addEventListener('afterrendercell', function (e) {
-            if (!footnotes?.length) { 
-                return
-            }
             const i = e?.cell?.rowIndex || -1
             const j = e?.cell?.columnIndex || -1
             if (i < numFrozenRows || j < numFrozenCols) {
                 return
             }
-            if (footnoteGrid.length < (i - numFrozenRows)) {
-                return
-            }
             let superscripts = []
-            try {
-                superscripts = footnoteGrid[i - numFrozenRows][j - numFrozenCols]
-            } catch (e) {
-                console.error(e)
-            }
             const cell = e.cell.value
-            if (!superscripts?.length) {
-                return
-            }
             let newInnerHtml = `<span style="font: 10.66px CarlitoRegular; padding: 0 2%;">${cell}</span><superscript style="vertical-align: super; font: 9px CarlitoRegular;">(`
             for (let k = 0; k < superscripts.length; k++) {
                 const superscript = superscripts[k] - 1
