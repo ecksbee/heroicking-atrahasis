@@ -14,6 +14,7 @@ const BrowserPage = () => {
         return null
     }
     let mainPanelTitle = renderable.RelationshipSet.Title
+    let subtitle = renderable.RelationshipSet.RoleURI
     return (<div id={styles['main-panel']} style={{
         display: 'block'
     }}>
@@ -29,6 +30,7 @@ const BrowserPage = () => {
                     console.log(u.toString())
                     history.pushState(null, '', u.toString())
                 }}>[X]</a></h1>
+                <h2>{subtitle}</h2>
             </div>
             <div id={styles['main-panel-body']}>
                 <fluent-tabs activeid={currentTab()}>
