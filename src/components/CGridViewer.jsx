@@ -24,30 +24,6 @@ const CGridViewer = ({labelRole, lang}) => {
             const blob = transformSummationItem(summationItem, labelRole, lang)
             setTimeout(() => {
                 dataGrid(blob.grid, blob.numFrozenRows, 2, summationItemDiv, (grid, e) => {
-                    if (e.cell) {
-                        const r = e.cell.rowIndex - blob.numFrozenRows
-                        const c = e.cell.columnIndex - 2
-                        if (r > -1 && c > -1) {
-                            const fact = summationItem.FactualQuadrant[r][c]
-                            if (fact?.[lang].InnerHtml) {
-                                e.items.push({
-                                    title: 'Show Narrative',
-                                    click: () => {
-                                        store.showNarrativeFact(r, c, 'CGrid', siIndex)
-                                    },
-                                })
-                            }
-                            const superscripts = store.footnotesSuperscripts(renderable, r, c, 'CGrid', siIndex)
-                            if (superscripts.length) {
-                                e.items.push({
-                                    title: 'Show Footnotes',
-                                    click: () => {
-                                        store.showFootnotes(r, c, 'CGrid', siIndex)
-                                    },
-                                })
-                            }
-                        }
-                    }
                     cGrid.SummationItems.forEach(item => {
                         e.items.push({
                             title: item.Href,

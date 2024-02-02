@@ -22,25 +22,6 @@ export default (data, numFrozenRows, numFrozenCols, mount, onContextMenu, footno
         grid.data = data
         grid.frozenColumn = numFrozenCols || 1
         grid.frozenRow = (Math.floor(grid.visibleRowHeights.length/2) < numFrozenRows) ? 1 : numFrozenRows
-        grid.addEventListener('afterrendercell', function (e) {
-            const i = e?.cell?.rowIndex || -1
-            const j = e?.cell?.columnIndex || -1
-            if (i < numFrozenRows || j < numFrozenCols) {
-                return
-            }
-            let superscripts = []
-            const cell = e.cell.value
-            let newInnerHtml = `<span style="font: 10.66px CarlitoRegular; padding: 0 2%;">${cell}</span><superscript style="vertical-align: super; font: 9px CarlitoRegular;">(`
-            for (let k = 0; k < superscripts.length; k++) {
-                const superscript = superscripts[k] - 1
-                newInnerHtml += superscript
-                if (k !== superscripts.length - 1) {
-                    newInnerHtml += ', '
-                }
-            }
-            newInnerHtml += `)</superscript>`
-            e.cell.innerHTML = newInnerHtml
-        })
         grid.addEventListener('beforesortcolumn', e => {
             e.preventDefault()
         })

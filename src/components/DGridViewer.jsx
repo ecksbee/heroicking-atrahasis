@@ -26,30 +26,6 @@ const DGridViewer = ({labelRole, lang}) => {
         const rootDomainBlob = transformRootDomain(rootDomain, labelRole, lang)
         setTimeout(() => {
             dataGrid(rootDomainBlob.grid, rootDomainBlob.numFrozenRows, 1, dGridDiv, (grid, e) => {
-                if (e.cell) {
-                    const r = e.cell.rowIndex - rootDomainBlob.numFrozenRows
-                    const c = e.cell.columnIndex - 1
-                    if (r > -1 && c > -1) {
-                        const fact = rootDomain.FactualQuadrant[r][c]
-                        if (fact?.[lang].InnerHtml) {
-                            e.items.push({
-                                title: 'Show Narrative',
-                                click: () => {
-                                    store.showNarrativeFact(r, c, 'DGrid', rdIndex)
-                                },
-                            })
-                        }
-                        const superscripts = store.footnotesSuperscripts(renderable, r, c, 'DGrid', rdIndex)
-                        if (superscripts.length) {
-                            e.items.push({
-                                title: 'Show Footnotes',
-                                click: () => {
-                                    store.showFootnotes(r, c, 'DGrid', rdIndex)
-                                },
-                            })
-                        }
-                    }
-                }
                 e.items.push({
                     title: 'Visualize DRS',
                     click: () => {
@@ -60,7 +36,7 @@ const DGridViewer = ({labelRole, lang}) => {
                     e.items.push({
                         title: item.Href,
                         click: () => {
-                            const blob = transformRootDomain(item)
+                            const blob = transformRootDomain(item, labelRole, lang)
                             grid.data = blob.grid
                             grid.frozenRow = blob.numFrozenRows
                             grid.draw()
