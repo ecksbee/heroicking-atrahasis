@@ -15,8 +15,7 @@ import store from './lib/store'
 import CatalogPage from './components/CatalogPage'
 import BrowserPage from './components/BrowserPage'
 import InspectorPage from './components/InspectorPage'
-import logo from './logo.svg'
-import styles from './App.module.css'
+import Spinner from './components/Spinner'
 provideFluentDesignSystem().register(
     fluentCombobox(),
     fluentOption(),
@@ -51,13 +50,9 @@ const App = () => {
       }
       </>
     }
-  // </>
+  </>
 }
 
-const Spinner = () => <>
-  <div id={styles['spinner2']}><div></div></div>
-  <div id={styles['spinner']}><div></div></div>
-</>
 
 
 export default App
