@@ -20,27 +20,14 @@
     border-radius: 50%;
     animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: #000 #000 transparent transparent;
-    /* border-color: #000 transparent transparent transparent; */
     background-color: #fcc503;
-  }
-  .spinner div:nth-child(1) {
-    animation-delay: -0.6;
-  }
-  .spinner div:nth-child(2) {
-    animation-delay: -0.4s;
-  }
-  .spinner div:nth-child(3) {
-    animation-delay: -0.2;
   }
 @keyframes spinner {
   0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(180deg);
+    transform: rotate(-45deg);
   }
   100% {
-    transform: rotate(360deg);
+    transform: rotate(315deg);
   }
 }
 #spinner2 {
@@ -67,21 +54,9 @@
     border-color: #000 transparent transparent transparent;
     background-color: #fcc503;
   }
-  .spinner2 div:nth-child(1) {
-    animation-delay: -0.6;
-  }
-  .spinner2 div:nth-child(2) {
-    animation-delay: -0.4s;
-  }
-  .spinner2 div:nth-child(3) {
-    animation-delay: -0.2;
-  }
   @keyframes spinner2 {
     0% {
       transform: rotate(360deg);
-    }
-    50% {
-      transform: rotate(180deg);
     }
     100% {
       transform: rotate(0deg);
