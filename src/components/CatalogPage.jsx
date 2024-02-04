@@ -1,12 +1,12 @@
 import { For, createSignal } from 'solid-js'
 
 import store from '../lib/store'
+import SearchPage from './SearchPage'
 import logo from '../logo.svg'
 import styles from './CatalogPage.module.css'
 import commonStyles from './Common.module.css'
 
-const title = 'Taxonomy Library'
-const CatalogPage = () => {
+const ConcentNetworkCatalog = () => {
     const catalog = store.getCatalog()
     const subjects = catalog.Subjects
     const rsets = catalog.RelationshipSets
@@ -15,11 +15,7 @@ const CatalogPage = () => {
     const [subject, setSubject] = createSignal(initSubject)
     const [relationshipSet, setRelationshipSet] = createSignal(initRoleURI)
     setSubject(initSubject)
-    return (<>
-        <img style={{height: 'auto', width: '25vw', position: 'fixed', bottom: '1%', right: '1%'}} src={logo} />
-    <div id={styles['selector-container']}>
-        <div id={styles['selector-panel']}>
-            <h1 id={styles.title}>{title}</h1>
+    return <>
             <h2>Relationship Set</h2>
             <fluent-combobox id={styles.relationshipSetSelectize} class={commonStyles['combo-boxes']} current-value={initRoleURI} >
                 <For each={rsets}>
@@ -53,8 +49,32 @@ const CatalogPage = () => {
                         }
                     }
                 }>Browse</fluent-button>
-            </div>
-            </div>
+            </div></>
+}
+
+
+const mainPanelTitle = 'Taxonomy Library'
+const CatalogPage = () => {
+    const [currentTab, setCurrentTab] = createSignal('networks')
+    return (<>
+        <div id={styles['selector-container']}>
+        <div id={styles['selector-panel']}>
+            <h1 id={styles.title}>{mainPanelTitle}</h1>
+            <img style={{height: 'auto', width: '25vw', position: 'fixed', bottom: '1%', right: '1%'}} src={logo} />
+            <fluent-tabs activeid={currentTab()}>
+                <fluent-tab id='networks' onClick={e => setCurrentTab('networks')}>
+                    Concept Networks</fluent-tab>
+                <fluent-tab id='concepts' onClick={e => setCurrentTab('concepts')}>
+                    Concept Search</fluent-tab>
+
+                <fluent-tab-panel id='networks'>
+                    { currentTab() === 'networks' && <ConcentNetworkCatalog /> }
+                </fluent-tab-panel>
+                <fluent-tab-panel id='concepts'>
+                    { currentTab() === 'concepts' && <SearchPage /> }
+                </fluent-tab-panel>
+            </fluent-tabs>
+        </div>
         </div>
     </>
     )
