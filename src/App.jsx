@@ -7,6 +7,8 @@ import {
     fluentTabPanel,
     fluentTabs,
     fluentButton,
+    fluentRadio,
+    fluentRadioGroup,
     fluentTextField
 } from '@fluentui/web-components'
 import 'isomorphic-fetch'
@@ -23,6 +25,8 @@ provideFluentDesignSystem().register(
     fluentTabPanel(),
     fluentTabs(),
     fluentButton(),
+    fluentRadio(),
+    fluentRadioGroup(),
     fluentTextField()
 )
 
