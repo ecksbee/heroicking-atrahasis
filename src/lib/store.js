@@ -2,11 +2,13 @@ import { createStore } from 'solid-js/store'
 import fetchCatalog from './fetchCatalog'
 import fetchConceptCard from './fetchConceptCard'
 import fetchRenderabale from './fetchRenderabale'
+import fetchConceptSearchResults from './fetchConceptSearchResult'
  
 const initialState = {
     catalog: null,
     renderable: null,
     conceptCard: null,
+    searchResults: null,
     loading: true,
     error: false,
     visibleArcDiagram: false,
@@ -36,6 +38,9 @@ const setRenderable = (newRenderable) => {
 const setConceptCard = (newConceptCard) => {
     setState('conceptCard', () => newConceptCard)
 }
+const setSearchResults = (newSearchResults) => {
+    setState('searchResults', () => newSearchResults)
+}
 const setVisibleArcDiagram = (newVal) => {
     setState('visibleArcDiagram', () => !!newVal)
 }
@@ -44,8 +49,6 @@ const loadData = async () => {
     setError(false)
     setRenderable(null)
     setConceptCard(null)
-    // loadConceptCard()
-    // loadRenderable()
     let fetched
     try {
       fetched = await fetchCatalog()
@@ -77,7 +80,7 @@ const loadRenderable = async () => {
     }
     setLoading(false)
 }
-const loadConceptCard = async (href) => {
+const loadConceptCard = async () => {
     let fetched
     try {
         fetched = await fetchConceptCard()
@@ -90,6 +93,27 @@ const loadConceptCard = async (href) => {
       console.error(e)
       setError(true)
       setConceptCard(null)
+    }
+    setLoading(false)
+}
+const searchConcepts = async ({
+    query
+}) => {
+    setLoading(true)
+    setError(false)
+    setSearchResults(null)
+    let fetched
+    try {
+        fetched = await fetchConceptSearchResults({query})
+        if (!!fetched) { 
+            setLoading(false)
+            setError(false)
+            setSearchResults(fetched)
+        }
+    } catch (e) {
+      console.error(e)
+      setError(true)
+      setSearchResults(null)
     }
     setLoading(false)
 }
@@ -108,6 +132,9 @@ export default {
     loadConceptCard,
     getConceptCard: () => state.conceptCard,
     setConceptCard,
+    getSearchResults: () => state.searchResults,
+    setSearchResults,
+    searchConcepts,
     getVisibleArcDiagram: () => state.visibleArcDiagram,
     setVisibleArcDiagram,
     getLang: () => state.lang,

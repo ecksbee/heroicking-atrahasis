@@ -18,6 +18,7 @@ import CatalogPage from './components/CatalogPage'
 import BrowserPage from './components/BrowserPage'
 import InspectorPage from './components/InspectorPage'
 import Spinner from './components/Spinner'
+import SearchResults from './components/SearchResults'
 provideFluentDesignSystem().register(
     fluentCombobox(),
     fluentOption(),
@@ -44,13 +45,16 @@ const App = () => {
     {
       !store.getLoading() && !store.getError() && <>
       {
-          !store.getConceptCard() && !store.getRenderable() && store.getCatalog() && <CatalogPage />
+          !store.getSearchResults() && !store.getConceptCard() && !store.getRenderable() && store.getCatalog() && <CatalogPage />
       }
       {
-          !store.getConceptCard() && store.getRenderable() && <BrowserPage />
+          !store.getSearchResults() && !store.getConceptCard() && store.getRenderable() && <BrowserPage />
       }
       {
-          store.getConceptCard() && !store.getRenderable() && <InspectorPage />
+          !store.getSearchResults() && store.getConceptCard() && !store.getRenderable() && <InspectorPage />
+      }
+      {
+          store.getSearchResults() && <SearchResults />
       }
       </>
     }

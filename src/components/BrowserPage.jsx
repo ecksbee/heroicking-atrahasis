@@ -27,7 +27,6 @@ const BrowserPage = () => {
                     store.setRenderable(null)
                     const u = new URL(window.location.href)
                     u.search = ''
-                    console.log(u.toString())
                     history.pushState(null, '', u.toString())
                 }}>[X]</a></h1>
                 <h2>{subtitle}</h2>
