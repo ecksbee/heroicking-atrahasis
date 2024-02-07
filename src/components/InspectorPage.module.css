@@ -2,7 +2,7 @@
     width: 99vw;
     height: 99vh;
     padding: 0.2%;
-    margin: 0;
+    margin: 1%;
 }
 #main-panel-title{
     width: 100%;
@@ -13,7 +13,7 @@
 }
 #main-panel-body{
     width: 100%;
-    height: 92%;
+    height: auto;
 }
 .truncate {
   width: 95vw;

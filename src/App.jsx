@@ -48,10 +48,10 @@ const App = () => {
           !store.getSearchResults() && !store.getConceptCard() && !store.getRenderable() && store.getCatalog() && <CatalogPage />
       }
       {
-          !store.getSearchResults() && !store.getConceptCard() && store.getRenderable() && <BrowserPage />
+          !store.getSearchResults() && store.getConceptCard() && !store.getRenderable() && <InspectorPage />
       }
       {
-          !store.getSearchResults() && store.getConceptCard() && !store.getRenderable() && <InspectorPage />
+          !store.getSearchResults() && store.getRenderable() && <BrowserPage />
       }
       {
           store.getSearchResults() && <SearchResults />
