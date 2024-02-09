@@ -43,7 +43,7 @@ const InspectorPage = () => {
                 <p>Namespace: {conceptCard.Namespace}</p>
                 <p>Name: {conceptCard.Name}</p>
                 <p>Substitution Group: {conceptCard.SubstitutionGroup}</p>
-                <p>PeriodType: {conceptCard.ItemType}</p>
+                <p>Type: {conceptCard.ItemType}</p>
                 <p>Period Type: {conceptCard.PeriodType}</p>
                 <p>Balance Type: {conceptCard.BalanceType}</p>
             </div>
