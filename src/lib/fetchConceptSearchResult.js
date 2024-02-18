@@ -1,6 +1,8 @@
-export default async ({query}) => {
-    const indexName = 'concepts'
-    const response = await fetch('concepts/search?indexName=' + indexName, {
+export default async (code, {query}) => {
+    if (!code) {
+        return null
+    }
+    const response = await fetch('/taxonomies/' + code + '/search', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
