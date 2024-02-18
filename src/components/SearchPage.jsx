@@ -3,8 +3,9 @@ import { For, createSignal } from 'solid-js'
 import store from '../lib/store'
 import styles from './SearchPage.module.css'
 
-const types = [ 'xbrli:monetaryItemType', 'xbrli:stringItemType', 'dtr-types:domainItemType' ]
-const sGroups = [ 'xbrli:item', 'xbrldt:hypercubeItem', 'xbrldt:dimensionItem' ]
+
+const types = [ '', 'monetaryItemType', 'stringItemType', 'domainItemType' ]
+const sGroups = ['', 'item', 'hypercubeItem', 'dimensionItem' ]
 const SearchPage = () => {
     const [search, setSearch] = createSignal('')
     const [filter, setFilter] = createSignal('Term')
@@ -37,7 +38,7 @@ const SearchPage = () => {
         </div>
         <div>
             <h3>Substitution Group</h3>
-            <fluent-combobox current-value={type()} >
+            <fluent-combobox current-value={sGroup()} >
                 <For each={sGroups}>
                     {(mySGroup) => {
                         return (<fluent-option value={mySGroup} onClick={e => {
