@@ -1,4 +1,6 @@
-export default async (code, {query}) => {
+export default async (code, {
+    query, filter, type, substitutionGroup
+}) => {
     if (!code) {
         return null
     }
@@ -12,7 +14,7 @@ export default async (code, {query}) => {
             from: 0,
             size: 10,
             query: {
-                field: "EnglishLabels",
+                field: filter.toLowerCase() === 'term'? 'EnglishLabels' : 'Name',
                 match: query
             },
             fields: [ "ID", "Source", "Namespace", "Name", "ItemType", "SubstitutionGroup",

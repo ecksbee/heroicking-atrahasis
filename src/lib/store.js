@@ -130,15 +130,13 @@ const loadConceptCard = async () => {
     }
     setLoading(false)
 }
-const searchConcepts = async ({
-    query
-}) => {
+const searchConcepts = async (searchParams) => {
     setLoading(true)
     setError(false)
     setSearchResults(null)
     let fetched
     try {
-        fetched = await fetchConceptSearchResults(state.taxonomyCode, {query})
+        fetched = await fetchConceptSearchResults(state.taxonomyCode, searchParams)
         if (!!fetched) { 
             setLoading(false)
             setError(false)
