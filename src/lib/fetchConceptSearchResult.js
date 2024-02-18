@@ -1,6 +1,10 @@
-export default async ({query}) => {
-    const indexName = 'concepts'
-    const response = await fetch('concepts/search?indexName=' + indexName, {
+export default async (code, {
+    query, filter, type, substitutionGroup
+}) => {
+    if (!code) {
+        return null
+    }
+    const response = await fetch('/taxonomies/' + code + '/search', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -10,7 +14,7 @@ export default async ({query}) => {
             from: 0,
             size: 10,
             query: {
-                field: "EnglishLabels",
+                field: filter.toLowerCase() === 'term'? 'EnglishLabels' : 'Name',
                 match: query
             },
             fields: [ "ID", "Source", "Namespace", "Name", "ItemType", "SubstitutionGroup",

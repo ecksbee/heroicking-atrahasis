@@ -45,7 +45,7 @@ const App = () => {
     {
       !store.getLoading() && !store.getError() && <>
       {
-          !store.getSearchResults() && !store.getConceptCard() && !store.getRenderable() && store.getCatalog() && <CatalogPage />
+          !store.getSearchResults() && !store.getConceptCard() && !store.getRenderable() && <CatalogPage />
       }
       {
           !store.getSearchResults() && store.getConceptCard() && !store.getRenderable() && <InspectorPage />

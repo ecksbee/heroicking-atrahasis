@@ -3,11 +3,14 @@ import fetchCatalog from './fetchCatalog'
 import fetchConceptCard from './fetchConceptCard'
 import fetchRenderabale from './fetchRenderabale'
 import fetchConceptSearchResults from './fetchConceptSearchResult'
+import fetchTaxonomyList from './fetchTaxonomyList'
  
 const initialState = {
     catalog: null,
     renderable: null,
     conceptCard: null,
+    taxonomyCode: null,
+    taxonomyCodes: [],
     searchResults: null,
     loading: true,
     error: false,
@@ -38,6 +41,12 @@ const setRenderable = (newRenderable) => {
 const setConceptCard = (newConceptCard) => {
     setState('conceptCard', () => newConceptCard)
 }
+const setTaxonomyCodes = (newTaxonomyCodes) => {
+    setState('taxonomyCodes', () => newTaxonomyCodes)
+}
+const setTaxonomyCode = (newTaxonomyCode) => {
+    setState('taxonomyCode', () => newTaxonomyCode)
+}
 const setSearchResults = (newSearchResults) => {
     setState('searchResults', () => newSearchResults)
 }
@@ -49,25 +58,49 @@ const loadData = async () => {
     setError(false)
     setRenderable(null)
     setConceptCard(null)
+    setTaxonomyCodes([])
     let fetched
     try {
-      fetched = await fetchCatalog()
-      setLoading(false)
-      setError(false)
-      setCatalog(fetched)
+        fetched = await fetchTaxonomyList()
+        if (!fetched?.length) {
+            return
+        }
+        setTaxonomyCodes(fetched)
+        const code = fetched[0]
+        setTaxonomyCode(code)
+        setLoading(false)
+        setError(false)
+    } catch (e) {
+        console.error(e)
+        setLoading(false)
+        setError(true)
+        setCatalog(null)
+        setRenderable(null)
+        return
+    }
+}
+const loadCatalog = async () => {
+    let fetched
+    try {
+        setLoading(true)
+        fetched = await fetchCatalog(state.taxonomyCode)
+        if (!!fetched) { 
+            setLoading(false)
+            setError(false)
+            setCatalog(fetched)
+        }
     } catch (e) {
       console.error(e)
-      setLoading(false)
       setError(true)
       setCatalog(null)
-      setRenderable(null)
-      return
     }
+    setLoading(false)
 }
 const loadRenderable = async () => {
     let fetched
     try {
-        fetched = await fetchRenderabale()
+        setLoading(true)
+        fetched = await fetchRenderabale(state.taxonomyCode)
         if (!!fetched) { 
             setLoading(false)
             setError(false)
@@ -83,7 +116,8 @@ const loadRenderable = async () => {
 const loadConceptCard = async () => {
     let fetched
     try {
-        fetched = await fetchConceptCard()
+        setLoading(true)
+        fetched = await fetchConceptCard(state.taxonomyCode)
         if (!!fetched) { 
             setLoading(false)
             setError(false)
@@ -96,15 +130,13 @@ const loadConceptCard = async () => {
     }
     setLoading(false)
 }
-const searchConcepts = async ({
-    query
-}) => {
+const searchConcepts = async (searchParams) => {
     setLoading(true)
     setError(false)
     setSearchResults(null)
     let fetched
     try {
-        fetched = await fetchConceptSearchResults({query})
+        fetched = await fetchConceptSearchResults(state.taxonomyCode, searchParams)
         if (!!fetched) { 
             setLoading(false)
             setError(false)
@@ -120,6 +152,7 @@ const searchConcepts = async ({
 
 export default {
     loadData,
+    loadCatalog,
     getCatalog: () => state.catalog,
     setCatalog,
     getLoading: () => state.loading,
@@ -131,6 +164,11 @@ export default {
     setRenderable,
     loadConceptCard,
     getConceptCard: () => state.conceptCard,
+    setConceptCard,
+    getTaxonomyCodes: () => state.taxonomyCodes,
+    setTaxonomyCodes,
+    getTaxonomyCode: () => state.taxonomyCode,
+    setTaxonomyCode,
     setConceptCard,
     getSearchResults: () => state.searchResults,
     setSearchResults,
