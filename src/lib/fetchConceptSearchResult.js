@@ -4,7 +4,7 @@ export default async (code, {
     if (!code) {
         return null
     }
-    const response = await fetch('/taxonomies/' + code + '/search', {
+    const response = await fetch('/taxonomies/' + code + '/concepts/search', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
