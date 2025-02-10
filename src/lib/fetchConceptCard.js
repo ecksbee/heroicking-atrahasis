@@ -9,7 +9,7 @@ export default async (code) => {
         return null
     }
     const hrefEncoded = encodeURIComponent(hrefUnencoded)
-    const response = await fetch('/taxonomies/' + code + '/concepts?href=' + hrefEncoded)
+    const response = await fetch('taxonomies/' + code + '/concepts?href=' + hrefEncoded)
     if (response.status >= 400) {
         throw new Error('Bad response from server')
     }
