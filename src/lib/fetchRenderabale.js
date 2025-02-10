@@ -8,7 +8,7 @@ export default async (code) => {
     if (!uuid) {
         return null
     }
-    const response = await fetch('/taxonomies/' + code + '/networks/' + uuid)
+    const response = await fetch('taxonomies/' + code + '/networks/' + uuid)
     if (response.status >= 400) {
         throw new Error('Bad response from server')
     }
